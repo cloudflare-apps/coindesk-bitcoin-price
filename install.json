@@ -50,13 +50,15 @@
         "title": "Currency",
         "type": "string",
         "default": "usd",
-        "enum": ["usd", "gbp", "eur", "inr", "cny"],
+        "enum": ["usd", "cad", "gbp", "eur", "inr", "cny", "jpy"],
         "enumNames": {
-          "usd": "USD",
-          "gbp": "GBP",
-          "eur": "EUR",
-          "inr": "INR",
-          "cny": "CNY"
+          "usd": "USD ($)",
+          "cad": "CAD ($)",
+          "gbp": "GBP (£)",
+          "eur": "EUR (€)",
+          "inr": "INR (₹)",
+          "cny": "CNY (¥)",
+          "jpy": "JPY (¥)"
         }
       },
       "textColor": {

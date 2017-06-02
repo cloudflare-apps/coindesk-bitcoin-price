@@ -19,6 +19,10 @@
       symbol: '$',
       word: 'USD'
     },
+    cad: {
+      symbol: '$',
+      word: 'CAD'
+    },
     gbp: {
       symbol: '£',
       word: 'GBP'
@@ -34,6 +38,10 @@
     cny: {
       symbol: '¥',
       word: 'CNY'
+    },
+    jpy: {
+      symbol: '¥',
+      word: 'JPY'
     }
   };
 
@@ -159,7 +167,10 @@
       var symbol = currencyDict[options.currency].symbol;
       var threeLetterWord = currencyDict[options.currency].word;
 
-      cryptoPrice.textContent = '1 BTC = ' + symbol + priceData.bpi[threeLetterWord].rate_float.toFixed(2);
+      cryptoPrice.textContent = '1 BTC = ' +
+        symbol +
+        priceData.bpi[threeLetterWord].rate_float.toFixed(2) +
+        ' ' + threeLetterWord
     });
 
     if (options.currency === 'usd' || options.currency === 'gbp' || options.currency === 'eur') {
