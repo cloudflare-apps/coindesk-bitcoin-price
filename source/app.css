@@ -1,20 +1,22 @@
 /* Set the app attribute to your app's dash-delimited alias. */
-cloudflare-app[app="crypto"] {
+cloudflare-app[app="bitcoin-price-widget"] {
   display: block;
   font-weight: bold;
   margin: .5em .2em;
 }
 
-cloudflare-app[app="crypto"] crypto-wrapper {
+cloudflare-app[app="bitcoin-price-widget"] crypto-wrapper {
   display: block;
   margin: 0 auto;
   text-align: center;
-  background-color: white;
   padding: .5em;
 }
 
-/* Use custom elements to avoid style inheritance. */
-cloudflare-app[app="crypto"] crypto-price {
+cloudflare-app[app="bitcoin-price-widget"] canvas {
+  max-width: 100vw;
+}
+
+cloudflare-app[app="bitcoin-price-widget"] crypto-price {
   display: block;
   margin: 0 auto;
   width: 50%;
@@ -22,7 +24,7 @@ cloudflare-app[app="crypto"] crypto-price {
   text-align: center;
 }
 
-cloudflare-app[app="crypto"] crypto-credit {
+cloudflare-app[app="bitcoin-price-widget"] crypto-provider {
   display: block;
   margin: 0 auto;
   width: 50%;
@@ -31,15 +33,11 @@ cloudflare-app[app="crypto"] crypto-credit {
   padding-top: .5em;
 }
 
-cloudflare-app[app="crypto"] crypto-history {
+cloudflare-app[app="bitcoin-price-widget"] crypto-history {
   display: block;
   margin: 0 auto;
   width: 50%;
   font-size: 8px;
   text-align: center;
   padding-top: .5em;
-}
-
-cloudflare-app[app="crypto"] .coindesk-price {
-  color: #F1C40F;
 }
