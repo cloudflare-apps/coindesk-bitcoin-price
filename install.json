@@ -20,8 +20,16 @@
   "preview": {
     "handlers": [
       {
-        "options": ["*"],
-        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+        "options": ["location"],
+        "execute": "INSTALL_SCOPE.setLocation(INSTALL_OPTIONS)"
+      },
+      {
+        "options": ["textColor", "backgroundColor", "graphColor"],
+        "execute": "INSTALL_SCOPE.setColors(INSTALL_OPTIONS)"
+      },
+      {
+        "options": ["currency"],
+        "execute": "INSTALL_SCOPE.setCurrency(INSTALL_OPTIONS)"
       }
     ]
   },
@@ -38,6 +46,7 @@
         }
       },
       "currency": {
+        "order": 1,
         "title": "Currency",
         "type": "string",
         "default": "usd",
@@ -51,18 +60,21 @@
         }
       },
       "textColor": {
-        "default": "#FFFFFF",
+        "order": 2,
+        "default": "#FFF",
         "format": "color",
         "title": "Text Color",
         "type": "string"
       },
       "backgroundColor": {
+        "order": 3,
         "default": "#2B3035",
         "format": "color",
         "title": "Background Color",
         "type": "string"
       },
       "graphColor": {
+        "order": 4,
         "default": "#F1C40F",
         "format": "color",
         "title": "Graph Color",
