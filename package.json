@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CloudflareApps/ExampleApp.git"
+    "url": "git+https://gitlab.com/irtefa/bitcoin-price-widget"
   },
   "author": "Mohd Irtefa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CloudflareApps/ExampleApp/issues"
+    "url": "https://gitlab.com/irtefa/bitcoin-price-widget"
   },
-  "homepage": "https://github.com/CloudflareApps/ExampleApp#readme",
+  "homepage": "https://gitlab.com/irtefa/bitcoin-price-widget/README.md",
   "dependencies": {},
   "devDependencies": {
     "standard": "^9.0.2"
