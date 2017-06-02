@@ -61,7 +61,7 @@
       },
       "textColor": {
         "order": 2,
-        "default": "#FFF",
+        "default": "#ffffff",
         "format": "color",
         "title": "Text Color",
         "type": "string"
