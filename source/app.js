@@ -3,15 +3,37 @@
 
   if (!window.addEventListener) return // Check for IE9+
 
+  // Initializations
   var options = INSTALL_OPTIONS
   var element
   var wrapper
+  var currencyDict = {
+    'usd': {
+      symbol: '$',
+      word: 'USD'
+    },
+    'gbp': {
+      symbol: '£',
+      word: 'GBP'
+    },
+    'eur': {
+      symbol: '€',
+      word: 'EUR'
+    },
+    'inr': {
+      symbol: '₹',
+      word: 'INR'
+    },
+    'cny': {
+      symbol: '¥',
+      word: 'CNY'
+    }
+  };
 
   // updateElement runs every time the options are updated.
   // Most of your code will end up inside this function.
   function updateElement (resp) {
     element = INSTALL.createElement(options.location, element)
-
 
     // Set the app attribute to your app's dash-delimited alias.
     element.setAttribute('app', 'crypto');
@@ -20,34 +42,19 @@
     var cryptoCredit = document.createElement('crypto-credit');
     var cryptoHistory = document.createElement('crypto-history');
 
-    var symbol = "$";
-    var currencySymbol = "USD"
-
-    if (options.currency === "gbp") {
-      symbol = "£";
-      currencySymbol = "GBP"
-    } else if (options.currency === "eur") {
-      symbol = "€";
-      currencySymbol = "EUR";
-    } else if (options.currency === "inr") {
-      symbol = "₹";
-      currencySymbol = "INR";
-    } else if (options.currency === "cny") {
-      symbol = "¥";
-      currencySymbol = "CNY";
-    }
-
     wrapper.style.backgroundColor = options.backgroundColor;
 
-    cryptoPrice.textContent = "1BTC = "+symbol+resp["bpi"][currencySymbol]["rate_float"].toFixed(2);
+    var symbol = currencyDict[options.currency].symbol;
+    var threeLetterWord = currencyDict[options.currency].word;
+
+    cryptoPrice.textContent = "1BTC = "+symbol+resp.bpi[threeLetterWord].rate_float.toFixed(2);
     cryptoPrice.style.color = options.textColor;
     wrapper.appendChild(cryptoPrice);
 
 
-    cryptoCredit.innerHTML = "<p> Powered by <a class='coindesk-price' href='https://coindesk.com/price'>CoinDesk</a></p>";
+    cryptoCredit.innerHTML = "<p> Powered by <a class='coindesk-price' target='_blank' href='https://coindesk.com/price'>CoinDesk</a></p>";
     cryptoCredit.style.color = options.textColor;
     wrapper.appendChild(cryptoCredit);
-
     element.appendChild(wrapper);
   }
 
@@ -59,29 +66,41 @@
     fetchHistoricalPrice();
   }
 
+  // Request Listeners
   function reqListener () {
-    updateElement(JSON.parse(this.responseText));
+    try {
+      var response = JSON.parse(this.responseText);
+      updateElement(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function historicalPriceListener() {
-    var historicalData = JSON.parse(this.responseText);
+    var historicalData
+    try {
+      historicalData = JSON.parse(this.responseText);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
 
     var data = [];
     var dates = [];
 
-    for (var key in historicalData['bpi']) {
-      data.push(historicalData['bpi'][key].toFixed(2));
+    for (var key in historicalData.bpi) {
+      data.push(historicalData.bpi[key].toFixed(2));
       dates.push(key);
     }
 
     var chart = document.createElement('canvas');
-    chart.setAttribute('id', 'myChart');
+    chart.setAttribute('id', 'crypto-chart');
     chart.setAttribute('width', '400');
     chart.setAttribute('height', '100');
     wrapper.appendChild(chart);
 
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
+    var ctx = document.getElementById("crypto-chart").getContext('2d');
+    var cryptoChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: dates,
@@ -106,6 +125,7 @@
     });
   }
 
+  // Fetchers
   function fetchHistoricalPrice() {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", historicalPriceListener);
@@ -113,19 +133,7 @@
     var today = new Date();
     var theDayBefore = new Date(Date.now() - 172800000*2);
     var timeParams = today.toISOString().substring(0,10)+"&start="+theDayBefore.toISOString().substring(0,10);
-    var requestURL
-
-    if (options.currency === "usd") {
-      requestURL = "http://api.coindesk.com/v1/bpi/historical/close.json?currency=USD&end="+timeParams;;
-    } else if (options.currency === "gbp") {
-      requestURL = "http://api.coindesk.com/v1/bpi/historical/close.json?currency=GBP&end="+timeParams;;
-    } else if (options.currency === "eur") {
-      requestURL = "http://api.coindesk.com/v1/bpi/historical/close.json?currency=EUR&end="+timeParams;;
-    } else if (options.currency === "cny"){
-      requestURL = "http://api.coindesk.com/v1/bpi/historical/close.json?currency=CNY&end="+today.toISOString().substring(0,10)+"&start="+theDayBefore.toISOString().substring(0,10);
-    } else if (options.currency === "inr") {
-      requestURL = "http://api.coindesk.com/v1/bpi/historical/close.json?currency=INR&end="+today.toISOString().substring(0,10)+"&start="+theDayBefore.toISOString().substring(0,10);
-    }
+    var requestURL = "http://api.coindesk.com/v1/bpi/historical/close.json?currency="+currencyDict[options.currency].word+"&end="+timeParams;
 
     oReq.open("GET", requestURL);
     oReq.send();
@@ -137,10 +145,8 @@
 
     if (options.currency === "usd" || options.currency === "gbp" || options.currency === "eur") {
       oReq.open("GET", "http://api.coindesk.com/v1/bpi/currentprice.json");
-    } else if (options.currency === "cny"){
-      oReq.open("GET", "http://api.coindesk.com/v1/bpi/currentprice/CNY.json");
-    } else if (options.currency === "inr") {
-      oReq.open("GET", "http://api.coindesk.com/v1/bpi/currentprice/INR.json");
+    } else {
+      oReq.open("GET", "http://api.coindesk.com/v1/bpi/currentprice/"+currencyDict[options.currency].word+".json");
     }
 
     oReq.send();
