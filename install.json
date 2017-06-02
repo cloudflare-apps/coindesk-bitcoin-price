@@ -1,5 +1,11 @@
 {
   "resources": {
+    "head": [
+      {
+        "type": "script",
+        "src": "./source/Chart.js"
+      }
+    ],
     "body": [
       {
         "type": "style",
@@ -22,7 +28,7 @@
   "options": {
     "properties": {
       "location": {
-        "title": "Message location",
+        "title": "Widget Location",
         "order": 0,
         "type": "object",
         "format": "element",
@@ -31,13 +37,36 @@
           "method": "prepend"
         }
       },
-      "message": {
-        "title": "Message",
-        "description": "A short example message.",
+      "currency": {
+        "title": "Currency",
         "type": "string",
-        "format": "richtext",
-        "order": 1,
-        "default": "<p>Welcome to Cloudflare Apps! This is our example app.</p><p>Download this app every time you want to make a new project.</p>"
+        "default": "usd",
+        "enum": ["usd", "gbp", "eur", "inr", "cny"],
+        "enumNames": {
+          "usd": "USD",
+          "gbp": "GBP",
+          "eur": "EUR",
+          "inr": "INR",
+          "cny": "CNY"
+        }
+      },
+      "textColor": {
+        "default": "#FFFFFF",
+        "format": "color",
+        "title": "Text Color",
+        "type": "string"
+      },
+      "backgroundColor": {
+        "default": "#2B3035",
+        "format": "color",
+        "title": "Background Color",
+        "type": "string"
+      },
+      "graphColor": {
+        "default": "#F1C40F",
+        "format": "color",
+        "title": "Graph Color",
+        "type": "string"
       }
     }
   }

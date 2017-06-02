@@ -1,29 +1,45 @@
 /* Set the app attribute to your app's dash-delimited alias. */
-cloudflare-app[app="example"] {
+cloudflare-app[app="crypto"] {
   display: block;
   font-weight: bold;
   margin: .5em .2em;
-  outline: 1px dotted;
+}
+
+cloudflare-app[app="crypto"] crypto-wrapper {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  background-color: white;
   padding: .5em;
 }
 
-/* Use native elements when you'd like to inherit some styles from the page. */
-cloudflare-app[app="example"] p {
-  text-indent: 0;
-}
-
-/* Use em units to scale elements for different inherited styles. */
-cloudflare-app[app="example"] h1 {
-  font-size: 1.8em;
-}
-
 /* Use custom elements to avoid style inheritance. */
-cloudflare-app[app="example"] example-button {
-  border: 1px solid;
+cloudflare-app[app="crypto"] crypto-price {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  font-size: 20px;
+  text-align: center;
 }
 
-/* Prefix classes with your app's alias to avoid style collisions. */
-cloudflare-app[app="example"] .example-highlighted {
-  background-color: yellow;
-  outline: .2em solid yellow;
+cloudflare-app[app="crypto"] crypto-credit {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  font-size: 8px;
+  text-align: center;
+  padding-top: .5em;
+}
+
+cloudflare-app[app="crypto"] crypto-history {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  font-size: 8px;
+  text-align: center;
+  padding-top: .5em;
+}
+
+cloudflare-app[app="crypto"] .coindesk-price {
+  color: #F1C40F;
 }
