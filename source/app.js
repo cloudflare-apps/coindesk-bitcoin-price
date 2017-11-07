@@ -146,7 +146,7 @@
     var today = new Date();
     var theDayBefore = new Date(Date.now() - 172800000 * 2);
     var timeParams = today.toISOString().substring(0,10) + '&start=' + theDayBefore.toISOString().substring(0, 10);
-    var requestURL = 'http://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currencyDict[options.currency].word + '&end=' + timeParams;
+    var requestURL = 'https://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currencyDict[options.currency].word + '&end=' + timeParams;
 
     oReq.open("GET", requestURL);
     oReq.send();
